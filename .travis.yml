@@ -17,6 +17,6 @@ after_success:
   - echo "$DOCKER_PW" | docker login -u "$DOCKER_ID" --password-stdin
   #444
   - docker push youngwonseo/multi-client
-  - docker push yonngwonseo/multi-nginx
-  - docker push yonngwonseo/multi-server
-  - docker push yonngwonseo/multi-worker
+  - docker push youngwonseo/multi-nginx
+  - docker push youngwonseo/multi-server
+  - docker push youngwonseo/multi-worker

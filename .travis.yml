@@ -1,0 +1,20 @@
+sudo: required
+services:
+  - docker
+
+  before_install:
+    - docker build -t youngwonseo/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run youngwonseo/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t youngwonseo/multi-client ./client
+  - docker build -t youngwonseo/multi-nginx ./nginx
+  - docker build -t youngwonseo/multi-server ./server
+  - docker build -t youngwonseo/multi-worker ./worker
+  - echo "$DOCKER_PW" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push youngwonseo/multi-client
+  - docker push yonngwonseo/multi-nginx
+  - docker push yonngwonseo/multi-server
+  - docker push yonngwonseo/multi-worker

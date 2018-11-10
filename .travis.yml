@@ -3,20 +3,20 @@ services:
   - docker
 
 before_install:
-  - docker build -t youngwonseo/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t jazz9008/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run youngwonseo/react-test npm test -- --coverage
+  - docker run jazz9008/react-test npm test -- --coverage
 
 after_success:
-  - docker build -t youngwonseo/multi-client ./client
-  - docker build -t youngwonseo/multi-nginx ./nginx
-  - docker build -t youngwonseo/multi-server ./server
-  - docker build -t youngwonseo/multi-worker ./worker
+  - docker build -t jazz9008/multi-client ./client
+  - docker build -t jazz9008/multi-nginx ./nginx
+  - docker build -t jazz9008/multi-server ./server
+  - docker build -t jazz9008/multi-worker ./worker
   #333
   - echo "$DOCKER_PW" | docker login -u "$DOCKER_ID" --password-stdin
   #444
-  - docker push youngwonseo/multi-client
-  - docker push youngwonseo/multi-nginx
-  - docker push youngwonseo/multi-server
-  - docker push youngwonseo/multi-worker
+  - docker push jazz9008/multi-client
+  - docker push jazz9008/multi-nginx
+  - docker push jazz9008/multi-server
+  - docker push jazz9008/multi-worker

@@ -13,10 +13,22 @@ after_success:
   - docker build -t jazz9008/multi-nginx ./nginx
   - docker build -t jazz9008/multi-server ./server
   - docker build -t jazz9008/multi-worker ./worker
-  #333
   - echo "$DOCKER_PW" | docker login -u "$DOCKER_ID" --password-stdin
-  #444
   - docker push jazz9008/multi-client
   - docker push jazz9008/multi-nginx
   - docker push jazz9008/multi-server
   - docker push jazz9008/multi-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: us-east-2
+  app: multi-docker
+  env: MultiDocker-env
+  bucket_name: elasticbeanstalk-us-east-2-285254030998
+  bucket_path: docker-multi
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY
+    

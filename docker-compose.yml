@@ -13,7 +13,7 @@ services:
       - '3050:80'
   api:
     build:
-      dockerfile: Dockerfile.devhttp://countryxide.tistory.com/86
+      dockerfile: Dockerfile.dev
       context: ./server
     volumes:
       - /app/node_modules

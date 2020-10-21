@@ -18,7 +18,8 @@ const pgClient = new Pool({
   password: keys.pgPassword,
   port: keys.pgPort
 });
-pgClient.on('error', () => console.log('Lost PG connection'));
+
+// const pgClient = new Pool('postgres://postgres:postgres_password@postgres:5432/postgres');
 
 pgClient
   .query('CREATE TABLE IF NOT EXISTS values (number INT)')
@@ -41,10 +42,11 @@ app.get('/', (req, res) => {
 
 app.get('/values/all', async (req, res) => {
   const values = await pgClient.query('SELECT * from values');
-
+  
   res.send(values.rows);
 });
 
+// 레디스에 저장된 values 셋을 반환
 app.get('/values/current', async (req, res) => {
   redisClient.hgetall('values', (err, values) => {
     res.send(values);
